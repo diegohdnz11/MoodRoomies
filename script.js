@@ -25,9 +25,13 @@ const cards = [
   },
 ];
 
-const defaultCard = { ...cards[0] };
 const cardCollection = document.querySelector("#card-collection");
 const addRoomButton = document.querySelector("#add-room-button");
+const roomDialog = document.querySelector("#room-dialog");
+const roomForm = document.querySelector("#room-form");
+const roomTitleInput = document.querySelector("#room-title");
+const roomCoverInput = document.querySelector("#room-cover");
+const cancelRoomButton = document.querySelector("#cancel-room-button");
 
 function createCard(card) {
   const article = document.createElement("article");
@@ -49,16 +53,23 @@ function createCard(card) {
   const artist = document.createElement("p");
   artist.textContent = card.artist;
 
+
   const deleteButton = document.createElement("button");
   deleteButton.className = "delete-button";
   deleteButton.type = "button";
-  deleteButton.textContent = "Delete";
+  deleteButton.innerHTML=`<img src ="assets/trash-svgrepo-com.svg" alt="Icon">`
+
+
 
   deleteButton.addEventListener("click", () => {
     const cardIndex = cards.indexOf(card);
 
     if (cardIndex !== -1) {
       cards.splice(cardIndex, 1);
+    }
+
+    if (card.uploadedCover) {
+      URL.revokeObjectURL(card.image);
     }
 
     article.remove();
@@ -75,13 +86,48 @@ cards.forEach((card) => {
 });
 
 addRoomButton.addEventListener("click", () => {
-  const sourceCard = defaultCard;
+  roomDialog.showModal();
+  roomTitleInput.focus();
+});
+
+cancelRoomButton.addEventListener("click", () => {
+  roomDialog.close();
+});
+
+roomCoverInput.addEventListener("change", () => {
+  roomCoverInput.setCustomValidity("");
+});
+
+roomForm.addEventListener("submit", (event) => {
+  event.preventDefault();
+
+  const coverFile = roomCoverInput.files[0];
+
+  if (coverFile.type !== "image/svg+xml" && !coverFile.name.toLowerCase().endsWith(".svg")) {
+    roomCoverInput.setCustomValidity("Choose an SVG cover file.");
+    roomCoverInput.reportValidity();
+    return;
+  }
+
+  const formData = new FormData(roomForm);
+  const title = formData.get("title").trim();
+  const artist = formData.get("artist").trim();
   const newCard = {
-    ...sourceCard,
     id: crypto.randomUUID(),
+    title,
+    artist,
+    image: URL.createObjectURL(coverFile),
+    imageDescription: `${title} cover`,
     rotation: "0deg",
+    uploadedCover: true,
   };
 
   cards.push(newCard);
   cardCollection.append(createCard(newCard));
+  roomDialog.close();
+});
+
+roomDialog.addEventListener("close", () => {
+  roomForm.reset();
+  roomCoverInput.setCustomValidity("");
 });

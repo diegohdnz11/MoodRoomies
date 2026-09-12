@@ -32,5 +32,31 @@
       </section>
 
     </main>
+
+    <dialog class="room-dialog" id="room-dialog" aria-labelledby="room-dialog-title">
+      <form class="room-form" id="room-form">
+        <h2 id="room-dialog-title">Add a room</h2>
+
+        <label for="room-title">Title</label>
+        <input id="room-title" name="title" type="text" maxlength="60" required />
+
+        <label for="room-artist">Artist</label>
+        <input id="room-artist" name="artist" type="text" maxlength="60" required />
+
+        <label for="room-cover">Cover SVG</label>
+        <input
+          id="room-cover"
+          name="cover"
+          type="file"
+          accept=".svg,image/svg+xml"
+          required
+        />
+
+        <div class="room-form-actions">
+          <button id="cancel-room-button" type="button">Cancel</button>
+          <button type="submit">Add room</button>
+        </div>
+      </form>
+    </dialog>
   </body>
 </html>
