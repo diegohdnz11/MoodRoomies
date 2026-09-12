@@ -57,7 +57,7 @@ function createCard(card) {
   const deleteButton = document.createElement("button");
   deleteButton.className = "delete-button";
   deleteButton.type = "button";
-  deleteButton.innerHTML=`<img src ="assets/trash-svgrepo-com.svg" alt="Icon">`
+  deleteButton.innerHTML=`<img src ="assets/trash-svgrepo-com.svg" alt="Delete Card Icon">`
 
 
 
@@ -66,6 +66,7 @@ function createCard(card) {
 
     if (cardIndex !== -1) {
       cards.splice(cardIndex, 1);
+
     }
 
     if (card.uploadedCover) {
