@@ -25,7 +25,9 @@ const cards = [
   },
 ];
 
+const defaultCard = { ...cards[0] };
 const cardCollection = document.querySelector("#card-collection");
+const addRoomButton = document.querySelector("#add-room-button");
 
 function createCard(card) {
   const article = document.createElement("article");
@@ -47,7 +49,22 @@ function createCard(card) {
   const artist = document.createElement("p");
   artist.textContent = card.artist;
 
-  details.append(title, artist);
+  const deleteButton = document.createElement("button");
+  deleteButton.className = "delete-button";
+  deleteButton.type = "button";
+  deleteButton.textContent = "Delete";
+
+  deleteButton.addEventListener("click", () => {
+    const cardIndex = cards.indexOf(card);
+
+    if (cardIndex !== -1) {
+      cards.splice(cardIndex, 1);
+    }
+
+    article.remove();
+  });
+
+  details.append(title, artist, deleteButton);
   article.append(artwork, details);
 
   return article;
@@ -55,4 +72,16 @@ function createCard(card) {
 
 cards.forEach((card) => {
   cardCollection.append(createCard(card));
+});
+
+addRoomButton.addEventListener("click", () => {
+  const sourceCard = defaultCard;
+  const newCard = {
+    ...sourceCard,
+    id: crypto.randomUUID(),
+    rotation: "0deg",
+  };
+
+  cards.push(newCard);
+  cardCollection.append(createCard(newCard));
 });
