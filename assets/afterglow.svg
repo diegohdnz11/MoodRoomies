@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" role="img" aria-labelledby="title description">
+  <title id="title">Afterglow sample cover</title>
+  <desc id="description">Warm glowing circles floating above a dark landscape.</desc>
+  <defs>
+    <linearGradient id="background" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#402047" />
+      <stop offset="0.55" stop-color="#b64b55" />
+      <stop offset="1" stop-color="#f19a5e" />
+    </linearGradient>
+    <radialGradient id="glow">
+      <stop offset="0" stop-color="#fff4c5" />
+      <stop offset="0.4" stop-color="#ffc172" />
+      <stop offset="1" stop-color="#ee735d" stop-opacity="0" />
+    </radialGradient>
+  </defs>
+  <rect width="800" height="800" fill="url(#background)" />
+  <circle cx="255" cy="270" r="190" fill="url(#glow)" />
+  <circle cx="555" cy="390" r="135" fill="url(#glow)" opacity="0.8" />
+  <circle cx="610" cy="170" r="62" fill="#ffd98d" opacity="0.72" />
+  <path d="M0 610 165 490l150 104 130-86 141 94 95-62 119 83v177H0Z" fill="#351b3d" opacity="0.88" />
+  <path d="M0 690c176-55 330-46 462 8 100 41 213 45 338 12v90H0Z" fill="#160f25" />
+</svg>

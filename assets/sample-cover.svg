@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" role="img" aria-labelledby="title description">
+  <title id="title">Midnight Colors sample cover</title>
+  <desc id="description">An abstract purple and orange sunset above a dark horizon.</desc>
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#27164a" />
+      <stop offset="0.5" stop-color="#9b3f86" />
+      <stop offset="1" stop-color="#ff9c59" />
+    </linearGradient>
+    <radialGradient id="sun">
+      <stop offset="0" stop-color="#fff1bf" />
+      <stop offset="1" stop-color="#ffac69" />
+    </radialGradient>
+  </defs>
+  <rect width="800" height="800" fill="url(#sky)" />
+  <circle cx="545" cy="320" r="142" fill="url(#sun)" opacity="0.94" />
+  <path d="M0 510 175 390l122 89 122-74 164 116 107-63 110 73v269H0Z" fill="#241431" opacity="0.74" />
+  <path d="M0 590 147 520l126 58 162-90 151 82 95-38 119 72v196H0Z" fill="#120d21" />
+  <path d="M0 670c168-46 285-39 407 4 116 40 235 48 393 2v124H0Z" fill="#090713" />
+</svg>

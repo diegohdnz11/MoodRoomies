@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" role="img" aria-labelledby="title description">
+  <title id="title">Blue Hour sample cover</title>
+  <desc id="description">Blue moonlight reflected across calm ocean waves.</desc>
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0c1738" />
+      <stop offset="0.58" stop-color="#274d88" />
+      <stop offset="1" stop-color="#8bb6c9" />
+    </linearGradient>
+    <linearGradient id="water" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#17345f" />
+      <stop offset="1" stop-color="#071127" />
+    </linearGradient>
+  </defs>
+  <rect width="800" height="800" fill="url(#sky)" />
+  <circle cx="235" cy="220" r="108" fill="#e7f2ec" />
+  <path d="M0 470c105-38 192-34 283 5 103 44 211 47 321 6 69-26 134-30 196-13v332H0Z" fill="url(#water)" />
+  <g fill="none" stroke="#9fd0db" stroke-linecap="round" opacity="0.62">
+    <path d="M100 566c91 18 175 18 253 0" stroke-width="13" />
+    <path d="M40 632c143 26 278 26 406 0" stroke-width="10" />
+    <path d="M168 698c168 20 318 17 450-8" stroke-width="8" />
+  </g>
+</svg>
