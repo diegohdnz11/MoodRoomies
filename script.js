@@ -32,6 +32,34 @@ const roomForm = document.querySelector("#room-form");
 const roomTitleInput = document.querySelector("#room-title");
 const roomCoverInput = document.querySelector("#room-cover");
 const cancelRoomButton = document.querySelector("#cancel-room-button");
+const roomListView = document.querySelector("#room-list-view");
+const roomDetailView = document.querySelector("#room-detail-view");
+const selectedCardArt = document.querySelector("#selected-card-art");
+const selectedCardTitle = document.querySelector("#selected-card-title");
+const selectedCardArtist = document.querySelector("#selected-card-artist");
+const backButton = document.querySelector("#back-button");
+
+let cardButtonToRestoreFocus = null;
+
+function openCard(card, cardButton) {
+  selectedCardArt.src = card.image;
+  selectedCardArt.alt = card.imageDescription;
+  selectedCardTitle.textContent = card.title;
+  selectedCardArtist.textContent = card.artist;
+  cardButtonToRestoreFocus = cardButton;
+
+  roomListView.hidden = true;
+  roomDetailView.hidden = false;
+  document.body.classList.add("detail-open");
+  backButton.focus();
+}
+
+function closeCard() {
+  roomDetailView.hidden = true;
+  roomListView.hidden = false;
+  document.body.classList.remove("detail-open");
+  cardButtonToRestoreFocus?.focus();
+}
 
 function createCard(card) {
   const article = document.createElement("article");
@@ -53,10 +81,16 @@ function createCard(card) {
   const artist = document.createElement("p");
   artist.textContent = card.artist;
 
+  const openButton = document.createElement("button");
+  openButton.className = "open-card-button";
+  openButton.type = "button";
+  openButton.setAttribute("aria-label", `Open ${card.title}`);
+  openButton.addEventListener("click", () => openCard(card, openButton));
 
   const deleteButton = document.createElement("button");
   deleteButton.className = "delete-button";
   deleteButton.type = "button";
+  deleteButton.setAttribute("aria-label", `Delete ${card.title}`);
   deleteButton.innerHTML=`<img src ="assets/trash-svgrepo-com.svg" alt="Delete Card Icon">`
 
 
@@ -76,8 +110,9 @@ function createCard(card) {
     article.remove();
   });
 
-  details.append(title, artist, deleteButton);
-  article.append(artwork, details);
+  details.append(title, artist);
+  openButton.append(artwork, details);
+  article.append(openButton, deleteButton);
 
   return article;
 }
@@ -132,3 +167,5 @@ roomDialog.addEventListener("close", () => {
   roomForm.reset();
   roomCoverInput.setCustomValidity("");
 });
+
+backButton.addEventListener("click", closeCard);

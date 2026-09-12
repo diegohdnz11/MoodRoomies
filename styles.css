@@ -20,6 +20,10 @@ body {
     #110d1d;
 }
 
+body.detail-open {
+  background: #000;
+}
+
 .room-shell {
   width: min(1120px, calc(100% - 48px));
   margin: 0 auto;
@@ -100,7 +104,7 @@ h2 {
   align-items: center;
   justify-content: center;
   min-width: 110px;
-  padding: 0.4rem 0.5rem;
+  margin-bottom: 2%;
   border: 1px;
   border-radius: 999px;
   background-color: transparent;
@@ -124,6 +128,7 @@ h2 {
 }
 
 .cover-card {
+  position: relative;
   width: 100%;
   padding: 12px 12px 18px;
   border: 1px solid rgb(255 255 255 / 12%);
@@ -131,6 +136,24 @@ h2 {
   background: #2b1d3b;
   box-shadow: 0 22px 38px rgb(0 0 0 / 35%);
   transform: rotate(var(--card-rotation, 0deg));
+}
+
+.open-card-button {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  color: inherit;
+  background: transparent;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.open-card-button:focus-visible {
+  outline: 3px solid #ffb86b;
+  outline-offset: 4px;
+  border-radius: 12px;
 }
 
 .cover-art {
@@ -142,7 +165,7 @@ h2 {
 }
 
 .cover-details {
-  padding: 16px 6px 0;
+  padding: 16px 34px 0 6px;
 }
 
 .cover-details h3,
@@ -162,11 +185,16 @@ h2 {
 }
 
 .delete-button {
+  position: absolute;
+  right: 14px;
+  bottom: 15px;
+  z-index: 1;
   display: block;
-  margin: 1px 0 0 auto;
+  margin: 0;
   border: 1px;
   font-weight: 500;
   background-color: transparent;
+  cursor: pointer;
 }
 .delete-button img{
   width: 20px;
@@ -174,6 +202,51 @@ h2 {
   object-fit: contain;
   transform: scale(1.35);
   transform-origin: center;
+}
+
+.room-detail-view:not([hidden]) {
+  position: relative;
+  display: grid;
+  min-height: 100vh;
+  padding: 72px 24px;
+  place-items: center;
+  background: #000;
+}
+
+.back-button {
+  position: absolute;
+  top: 28px;
+  left: 28px;
+  padding: 8px 12px;
+  border: 1px solid rgb(255 255 255 / 22%);
+  border-radius: 999px;
+  color: #fff;
+  background: transparent;
+  font: inherit;
+  cursor: pointer;
+}
+
+.back-button:focus-visible {
+  outline: 3px solid #ffb86b;
+  outline-offset: 3px;
+}
+
+.selected-card {
+  width: min(320px, calc(100vw - 48px));
+  transform: none;
+}
+
+.selected-card .cover-details {
+  padding-right: 6px;
+}
+
+.selected-card-title {
+  margin: 0;
+  font-family: inherit;
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
 }
 
 .room-dialog {

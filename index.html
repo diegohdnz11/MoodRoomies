@@ -13,7 +13,7 @@
     <script src="script.js" defer></script>
   </head>
   <body>
-    <main class="room-shell">
+    <main class="room-shell" id="room-list-view">
 
       <header class="room-header">
         <h1>Mood Rooms</h1>
@@ -31,6 +31,18 @@
         <div class="card-collection" id="card-collection" aria-live="polite"></div>
       </section>
 
+    </main>
+
+    <main class="room-detail-view" id="room-detail-view" hidden>
+      <button class="back-button" id="back-button" type="button">← Back</button>
+
+      <article class="cover-card selected-card">
+        <img class="cover-art" id="selected-card-art" src="" alt="" />
+        <div class="cover-details">
+          <h2 class="selected-card-title" id="selected-card-title"></h2>
+          <p id="selected-card-artist"></p>
+        </div>
+      </article>
     </main>
 
     <dialog class="room-dialog" id="room-dialog" aria-labelledby="room-dialog-title">
