@@ -2,11 +2,12 @@
   "name": "moodrooms",
   "version": "1.0.0",
   "description": "",
-  "main": "script.js",
+  "main": "script.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev" : "vite",
+    "dev": "vite",
     "build": "vite build",
+    "typecheck": "tsc --noEmit",
     "preview": "vite preview"
   },
   "repository": {
@@ -16,12 +17,13 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "commonjs",
+  "type": "module",
   "bugs": {
     "url": "https://github.com/diegohdnz11/MoodRoomies/issues"
   },
   "homepage": "https://github.com/diegohdnz11/MoodRoomies#readme",
   "devDependencies": {
+    "typescript": "^7.0.2",
     "vite": "^8.3.0"
   }
 }

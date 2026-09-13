@@ -1,4 +1,14 @@
-const cards = [
+type Card = {
+  id: string;
+  title: string;
+  artist: string;
+  image: string;
+  imageDescription: string;
+  rotation: string;
+  uploadedCover?: boolean;
+};
+
+const cards: Card[] = [
   {
     id: "midnight-sun",
     title: "Midnight Sun",
@@ -25,23 +35,33 @@ const cards = [
   },
 ];
 
-const cardCollection = document.querySelector("#card-collection");
-const addRoomButton = document.querySelector("#add-room-button");
-const roomDialog = document.querySelector("#room-dialog");
-const roomForm = document.querySelector("#room-form");
-const roomTitleInput = document.querySelector("#room-title");
-const roomCoverInput = document.querySelector("#room-cover");
-const cancelRoomButton = document.querySelector("#cancel-room-button");
-const roomListView = document.querySelector("#room-list-view");
-const roomDetailView = document.querySelector("#room-detail-view");
-const selectedCardArt = document.querySelector("#selected-card-art");
-const selectedCardTitle = document.querySelector("#selected-card-title");
-const selectedCardArtist = document.querySelector("#selected-card-artist");
-const backButton = document.querySelector("#back-button");
+function getRequiredElement<T extends Element>(selector: string): T {
+  const element = document.querySelector<T>(selector);
 
-let cardButtonToRestoreFocus = null;
+  if (!element) {
+    throw new Error(`Required element not found: ${selector}`);
+  }
 
-function openCard(card, cardButton) {
+  return element;
+}
+
+const cardCollection = getRequiredElement<HTMLDivElement>("#card-collection");
+const addRoomButton = getRequiredElement<HTMLButtonElement>("#add-room-button");
+const roomDialog = getRequiredElement<HTMLDialogElement>("#room-dialog");
+const roomForm = getRequiredElement<HTMLFormElement>("#room-form");
+const roomTitleInput = getRequiredElement<HTMLInputElement>("#room-title");
+const roomCoverInput = getRequiredElement<HTMLInputElement>("#room-cover");
+const cancelRoomButton = getRequiredElement<HTMLButtonElement>("#cancel-room-button");
+const roomListView = getRequiredElement<HTMLElement>("#room-list-view");
+const roomDetailView = getRequiredElement<HTMLElement>("#room-detail-view");
+const selectedCardArt = getRequiredElement<HTMLImageElement>("#selected-card-art");
+const selectedCardTitle = getRequiredElement<HTMLHeadingElement>("#selected-card-title");
+const selectedCardArtist = getRequiredElement<HTMLParagraphElement>("#selected-card-artist");
+const backButton = getRequiredElement<HTMLButtonElement>("#back-button");
+
+let cardButtonToRestoreFocus: HTMLButtonElement | null = null;
+
+function openCard(card: Card, cardButton: HTMLButtonElement): void {
   selectedCardArt.src = card.image;
   selectedCardArt.alt = card.imageDescription;
   selectedCardTitle.textContent = card.title;
@@ -54,14 +74,14 @@ function openCard(card, cardButton) {
   backButton.focus();
 }
 
-function closeCard() {
+function closeCard(): void {
   roomDetailView.hidden = true;
   roomListView.hidden = false;
   document.body.classList.remove("detail-open");
   cardButtonToRestoreFocus?.focus();
 }
 
-function createCard(card) {
+function createCard(card: Card): HTMLElement {
   const article = document.createElement("article");
   article.className = "cover-card";
   article.dataset.cardId = card.id;
@@ -91,16 +111,13 @@ function createCard(card) {
   deleteButton.className = "delete-button";
   deleteButton.type = "button";
   deleteButton.setAttribute("aria-label", `Delete ${card.title}`);
-  deleteButton.innerHTML=`<img src ="assets/trash-svgrepo-com.svg" alt="Delete Card Icon">`
-
-
+  deleteButton.innerHTML = '<img src="assets/trash-svgrepo-com.svg" alt="Delete Card Icon">';
 
   deleteButton.addEventListener("click", () => {
     const cardIndex = cards.indexOf(card);
 
     if (cardIndex !== -1) {
       cards.splice(cardIndex, 1);
-
     }
 
     if (card.uploadedCover) {
@@ -137,7 +154,13 @@ roomCoverInput.addEventListener("change", () => {
 roomForm.addEventListener("submit", (event) => {
   event.preventDefault();
 
-  const coverFile = roomCoverInput.files[0];
+  const coverFile = roomCoverInput.files?.[0];
+
+  if (!coverFile) {
+    roomCoverInput.setCustomValidity("Choose an SVG cover file.");
+    roomCoverInput.reportValidity();
+    return;
+  }
 
   if (coverFile.type !== "image/svg+xml" && !coverFile.name.toLowerCase().endsWith(".svg")) {
     roomCoverInput.setCustomValidity("Choose an SVG cover file.");
@@ -146,9 +169,16 @@ roomForm.addEventListener("submit", (event) => {
   }
 
   const formData = new FormData(roomForm);
-  const title = formData.get("title").trim();
-  const artist = formData.get("artist").trim();
-  const newCard = {
+  const titleValue = formData.get("title");
+  const artistValue = formData.get("artist");
+
+  if (typeof titleValue !== "string" || typeof artistValue !== "string") {
+    throw new Error("The room form is missing its title or artist field.");
+  }
+
+  const title = titleValue.trim();
+  const artist = artistValue.trim();
+  const newCard: Card = {
     id: crypto.randomUUID(),
     title,
     artist,
