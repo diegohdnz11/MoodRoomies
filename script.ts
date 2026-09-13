@@ -157,13 +157,20 @@ roomForm.addEventListener("submit", (event) => {
   const coverFile = roomCoverInput.files?.[0];
 
   if (!coverFile) {
-    roomCoverInput.setCustomValidity("Choose an SVG cover file.");
+    roomCoverInput.setCustomValidity("Choose an SVG, PNG, or JPEG cover file.");
     roomCoverInput.reportValidity();
     return;
   }
 
-  if (coverFile.type !== "image/svg+xml" && !coverFile.name.toLowerCase().endsWith(".svg")) {
-    roomCoverInput.setCustomValidity("Choose an SVG cover file.");
+  const allowedTypes = new Set(["image/svg+xml", "image/png", "image/jpeg"]);
+  const allowedExtensions = [".svg", ".png", ".jpg", ".jpeg"];
+  const lowercaseFileName = coverFile.name.toLowerCase();
+  const hasAllowedExtension = allowedExtensions.some((extension) =>
+    lowercaseFileName.endsWith(extension),
+  );
+
+  if (!allowedTypes.has(coverFile.type) && !hasAllowedExtension) {
+    roomCoverInput.setCustomValidity("Choose an SVG, PNG, or JPEG cover file.");
     roomCoverInput.reportValidity();
     return;
   }
