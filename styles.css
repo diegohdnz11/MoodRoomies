@@ -218,10 +218,16 @@ h2 {
 
 
 
-.back-button {
+.room-detail-header {
   position: absolute;
   top: 28px;
   left: 28px;
+  display: flex;
+  align-items: flex-start;
+  gap: 26px;
+}
+
+.back-button {
   padding: 8px 12px;
   border: 1px solid rgb(255 255 255 / 22%);
   border-radius: 999px;
@@ -242,8 +248,14 @@ h2 {
 
 }
 
-.selected-card .cover-details {
-  padding-right: 6px;
+.selected-room-heading {
+  padding-top: 3px;
+}
+
+.selected-room-heading p {
+  margin: 4px 0 0;
+  color: #bcaecb;
+  font-size: 0.875rem;
 }
 
 .selected-card-title {
