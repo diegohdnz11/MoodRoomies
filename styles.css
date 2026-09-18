@@ -205,6 +205,10 @@ h2 {
 }
 
 .room-detail-view:not([hidden]) {
+  --room-color-base: 17 13 29;
+  --room-color-primary: 123 67 151;
+  --room-color-secondary: 66 42 96;
+
   position: relative;
   display: flex;
   justify-content: flex-start;
@@ -212,8 +216,17 @@ h2 {
   padding: 0px 140px 0px ;
   place-items: center;
   background:
-    radial-gradient(circle at 80% 10%, rgb(123 67 151 / 24%), transparent 32rem),
-    #110d1d;
+    radial-gradient(
+      circle at 80% 10%,
+      rgb(var(--room-color-primary) / 38%),
+      transparent 34rem
+    ),
+    radial-gradient(
+      circle at 18% 88%,
+      rgb(var(--room-color-secondary) / 26%),
+      transparent 30rem
+    ),
+    rgb(var(--room-color-base));
 }
 
 
